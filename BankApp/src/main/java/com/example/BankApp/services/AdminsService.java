@@ -36,4 +36,10 @@ public class AdminsService {
 
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found");
     }
+
+    public Account createSaving (AccountDto accountDto){
+        if (accountHoldersRepository.findById(accountDto.getPrimaryOwner().getId()).isPresent()){
+
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found");}
 }

@@ -2,6 +2,10 @@ package com.example.BankApp.models;
 
 import com.example.BankApp.users.User;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,6 +14,7 @@ import java.time.LocalDate;
 public class Saving extends Account{
 
     private String secretKey;
+    @DecimalMin(value = "100")
     private BigDecimal minimumBalance;
     private LocalDate creationDate;
     private BigDecimal interestRate;
@@ -38,7 +43,9 @@ public class Saving extends Account{
     }
 
     public void setMinimumBalance(BigDecimal minimumBalance) {
-        this.minimumBalance = minimumBalance;
+        if(minimumBalance.compareTo(BigDecimal.valueOf(100)) == 1)
+            this.minimumBalance = minimumBalance;
+           else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found");
     }
 
     public LocalDate getCreationDate() {
