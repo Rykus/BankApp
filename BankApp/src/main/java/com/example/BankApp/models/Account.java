@@ -1,5 +1,6 @@
 package com.example.BankApp.models;
 
+import com.example.BankApp.users.User;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -12,8 +13,8 @@ public abstract class Account {
     private long id;
     private BigDecimal balance;
     @ManyToOne
-    private String primaryOwner;
-    private String secondaryOwner;
+    private User primaryOwner;
+    private User secondaryOwner;
     private BigDecimal penaltyFee;
 
     private AccountStatus status;
@@ -21,7 +22,7 @@ public abstract class Account {
     public Account() {
     }
 
-    public Account(BigDecimal balance, String primaryOwner, BigDecimal penaltyFee, AccountStatus status) {
+    public Account(BigDecimal balance, User primaryOwner, BigDecimal penaltyFee, AccountStatus status) {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
         this.penaltyFee = penaltyFee;
@@ -44,19 +45,19 @@ public abstract class Account {
         this.balance = balance;
     }
 
-    public String getPrimaryOwner() {
+    public User getPrimaryOwner() {
         return primaryOwner;
     }
 
-    public void setPrimaryOwner(String primaryOwner) {
+    public void setPrimaryOwner(User primaryOwner) {
         this.primaryOwner = primaryOwner;
     }
 
-    public String getSecondaryOwner() {
+    public User getSecondaryOwner() {
         return secondaryOwner;
     }
 
-    public void setSecondaryOwner(String secondaryOwner) {
+    public void setSecondaryOwner(User secondaryOwner) {
         this.secondaryOwner = secondaryOwner;
     }
 

@@ -1,4 +1,4 @@
-package com.example.BankApp.Users;
+package com.example.BankApp.users;
 
 import com.example.BankApp.models.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class AccountHolders extends User{
+public class AccountHolder extends User{
 
     private LocalDate dateOfBirth;
     @Embedded
@@ -23,10 +23,10 @@ public class AccountHolders extends User{
     @JsonIgnore
     private List<Account> accountList = new ArrayList<>();
 
-    public AccountHolders() {
+    public AccountHolder() {
     }
 
-    public AccountHolders(String name, LocalDate dateOfBirth, PrimaryAddress address, PrimaryAddress mailingAddress) {
+    public AccountHolder(String name, LocalDate dateOfBirth, PrimaryAddress address, PrimaryAddress mailingAddress) {
         super(name);
         this.dateOfBirth = dateOfBirth;
         this.address = address;

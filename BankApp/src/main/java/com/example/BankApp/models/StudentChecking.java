@@ -1,5 +1,6 @@
 package com.example.BankApp.models;
 
+import com.example.BankApp.users.User;
 import jakarta.persistence.Entity;
 
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ public class StudentChecking extends Account{
     public StudentChecking() {
     }
 
-    public StudentChecking(BigDecimal balance, String primaryOwner, BigDecimal penaltyFee, AccountStatus status, String secretKey, LocalDate creationDate) {
+    public StudentChecking(BigDecimal balance, User primaryOwner, BigDecimal penaltyFee, AccountStatus status, String secretKey, LocalDate creationDate) {
         super(balance, primaryOwner, penaltyFee, status);
         this.secretKey = secretKey;
         this.creationDate = creationDate;

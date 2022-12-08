@@ -1,9 +1,9 @@
 package com.example.BankApp.models;
 
+import com.example.BankApp.users.User;
 import jakarta.persistence.Entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Entity
 public class CreditCard extends Account {
@@ -15,7 +15,7 @@ public class CreditCard extends Account {
     public CreditCard() {
     }
 
-    public CreditCard(BigDecimal balance, String primaryOwner, BigDecimal penaltyFee, AccountStatus status, BigDecimal creditLimit, BigDecimal interestRate, BigDecimal penaltyFee1) {
+    public CreditCard(BigDecimal balance, User primaryOwner, BigDecimal penaltyFee, AccountStatus status, BigDecimal creditLimit, BigDecimal interestRate, BigDecimal penaltyFee1) {
         super(balance, primaryOwner, penaltyFee, status);
         this.creditLimit = creditLimit;
         this.interestRate = interestRate;

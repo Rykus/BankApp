@@ -1,4 +1,4 @@
-package com.example.BankApp.Users;
+package com.example.BankApp.users;
 
 import jakarta.persistence.Embeddable;
 
