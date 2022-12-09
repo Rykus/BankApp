@@ -1,25 +1,30 @@
 package com.example.BankApp.models;
 
+import com.example.BankApp.users.AccountHolder;
 import com.example.BankApp.users.User;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 
 import java.math.BigDecimal;
 
 @Entity
 public class CreditCard extends Account {
 
-    private BigDecimal creditLimit;
-    private BigDecimal interestRate;
-    private BigDecimal penaltyFee;
+    @DecimalMin(value = "100")
+    @DecimalMax(value = "100000")
+    private BigDecimal creditLimit = BigDecimal.valueOf(100);
+    @DecimalMin(value = "0.1")
+    private BigDecimal interestRate = BigDecimal.valueOf(0.2);
+
 
     public CreditCard() {
     }
 
-    public CreditCard(BigDecimal balance, User primaryOwner, BigDecimal penaltyFee, AccountStatus status, BigDecimal creditLimit, BigDecimal interestRate, BigDecimal penaltyFee1) {
-        super(balance, primaryOwner, penaltyFee, status);
+    public CreditCard(BigDecimal balance, AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
+        super(balance, primaryOwner, secondaryOwner);
         this.creditLimit = creditLimit;
         this.interestRate = interestRate;
-        this.penaltyFee = penaltyFee1;
     }
 
     public BigDecimal getCreditLimit() {
@@ -38,13 +43,4 @@ public class CreditCard extends Account {
         this.interestRate = interestRate;
     }
 
-    @Override
-    public BigDecimal getPenaltyFee() {
-        return penaltyFee;
-    }
-
-    @Override
-    public void setPenaltyFee(BigDecimal penaltyFee) {
-        this.penaltyFee = penaltyFee;
-    }
 }

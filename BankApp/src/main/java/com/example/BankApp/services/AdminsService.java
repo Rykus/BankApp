@@ -1,10 +1,7 @@
 package com.example.BankApp.services;
 
 import com.example.BankApp.dto.AccountDto;
-import com.example.BankApp.models.Account;
-import com.example.BankApp.models.AccountStatus;
-import com.example.BankApp.models.Checking;
-import com.example.BankApp.models.StudentChecking;
+import com.example.BankApp.models.*;
 import com.example.BankApp.repositories.AccountHoldersRepository;
 import com.example.BankApp.repositories.AccountRepository;
 import com.example.BankApp.users.AccountHolder;
@@ -24,22 +21,21 @@ public class AdminsService {
     AccountRepository accountRepository;
 
     public Account createChecking(AccountDto accountDto) {
-        if (accountHoldersRepository.findById(accountDto.getPrimaryOwner().getId()).isPresent()){
-            AccountHolder accountHolders = accountHoldersRepository.findById(accountDto.getPrimaryOwner().getId()).get();
-            Period intervalPeriod = Period.between(accountHolders.getDateOfBirth(), LocalDate.now());
-            if (intervalPeriod.getYears() < 24){
-                return accountRepository.save(new StudentChecking(accountDto.getBalance(), accountDto.getPrimaryOwner(), BigDecimal.valueOf(0),
-                        AccountStatus.ACTIVE,accountDto.getSecretKey(),LocalDate.now()));
-            }else return accountRepository.save(new Checking(accountDto.getBalance(),accountDto.getPrimaryOwner(),BigDecimal.valueOf(40),AccountStatus.ACTIVE,accountDto.getSecretKey(),
-                    BigDecimal.valueOf(250),BigDecimal.valueOf(12),LocalDate.now()));
-        }
+        AccountHolder primaryOwner = accountHoldersRepository.findById(accountDto.getPrimaryOwnerId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "El usuario no existe"));
+        AccountHolder secondaryOwner = null;
+        if(accountDto.getSecondaryOwnerId() != null) secondaryOwner =  accountHoldersRepository.findById(accountDto.getSecondaryOwnerId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "El usuario no existe"));
 
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found");
+        if(Period.between(primaryOwner.getDateOfBirth(), LocalDate.now()).getYears() < 24){
+            StudentChecking studentChecking = new StudentChecking();
+            return accountRepository.save(studentChecking);
+        }
+        Checking checking = new Checking();
+        return accountRepository.save(checking);
     }
 
     public Account createSaving (AccountDto accountDto){
         if (accountHoldersRepository.findById(accountDto.getPrimaryOwner().getId()).isPresent()){
-
+            return accountRepository.save(new Saving(accountDto.getBalance(),accountDto.getPrimaryOwner(),BigDecimal.valueOf(12),AccountStatus.ACTIVE,accountDto.getSecretKey(),))
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found");}
 }

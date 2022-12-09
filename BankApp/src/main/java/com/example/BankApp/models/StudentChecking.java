@@ -1,5 +1,6 @@
 package com.example.BankApp.models;
 
+import com.example.BankApp.users.AccountHolder;
 import com.example.BankApp.users.User;
 import jakarta.persistence.Entity;
 
@@ -10,12 +11,13 @@ import java.time.LocalDate;
 public class StudentChecking extends Account{
 
     private String secretKey;
-    private LocalDate creationDate;
+    private LocalDate creationDate = LocalDate.now();
     public StudentChecking() {
-    }
+            }
 
-    public StudentChecking(BigDecimal balance, User primaryOwner, BigDecimal penaltyFee, AccountStatus status, String secretKey, LocalDate creationDate) {
-        super(balance, primaryOwner, penaltyFee, status);
+    public StudentChecking(BigDecimal balance, AccountHolder primaryOwner,
+                           AccountHolder secondaryOwner, String secretKey, LocalDate creationDate) {
+        super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
         this.creationDate = creationDate;
     }

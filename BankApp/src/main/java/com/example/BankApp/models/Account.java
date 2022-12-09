@@ -1,5 +1,6 @@
 package com.example.BankApp.models;
 
+import com.example.BankApp.users.AccountHolder;
 import com.example.BankApp.users.User;
 import jakarta.persistence.*;
 
@@ -13,20 +14,22 @@ public abstract class Account {
     private long id;
     private BigDecimal balance;
     @ManyToOne
-    private User primaryOwner;
-    private User secondaryOwner;
-    private BigDecimal penaltyFee;
+    private AccountHolder primaryOwner;
+    @ManyToOne
+    private AccountHolder secondaryOwner;
+    private BigDecimal penaltyFee = BigDecimal.valueOf(40);
 
-    private AccountStatus status;
+    private AccountStatus status = AccountStatus.ACTIVE;
 
     public Account() {
     }
 
-    public Account(BigDecimal balance, User primaryOwner, BigDecimal penaltyFee, AccountStatus status) {
+    public Account(BigDecimal balance, AccountHolder primaryOwner,
+                   AccountHolder secondaryOwner) {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
-        this.penaltyFee = penaltyFee;
-        this.status = status;
+        this.secondaryOwner = secondaryOwner;
+
     }
 
     public long getId() {
@@ -45,19 +48,19 @@ public abstract class Account {
         this.balance = balance;
     }
 
-    public User getPrimaryOwner() {
+    public AccountHolder getPrimaryOwner() {
         return primaryOwner;
     }
 
-    public void setPrimaryOwner(User primaryOwner) {
+    public void setPrimaryOwner(AccountHolder primaryOwner) {
         this.primaryOwner = primaryOwner;
     }
 
-    public User getSecondaryOwner() {
+    public AccountHolder getSecondaryOwner() {
         return secondaryOwner;
     }
 
-    public void setSecondaryOwner(User secondaryOwner) {
+    public void setSecondaryOwner(AccountHolder secondaryOwner) {
         this.secondaryOwner = secondaryOwner;
     }
 

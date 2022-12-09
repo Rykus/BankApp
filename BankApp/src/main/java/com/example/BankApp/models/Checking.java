@@ -1,7 +1,9 @@
 package com.example.BankApp.models;
 
+import com.example.BankApp.users.AccountHolder;
 import com.example.BankApp.users.User;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.DecimalMin;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,21 +11,21 @@ import java.time.LocalDate;
 @Entity
 public class Checking extends Account{
     private String secretKey;
+    @DecimalMin(value = "250")
     private BigDecimal minimumBalance;
+    @DecimalMin(value = "12")
     private BigDecimal monthlyMaintenanceFee;
-    private LocalDate creationDate;
-
+    private LocalDate creationDate = LocalDate.now();
 
     public Checking() {
     }
 
-    public Checking(BigDecimal balance, User primaryOwner, BigDecimal penaltyFee, AccountStatus status, String secretKey, BigDecimal minimumBalance, BigDecimal monthlyMaintenanceFee, LocalDate creationDate) {
-        super(balance, primaryOwner, penaltyFee, status);
+    public Checking(BigDecimal balance, AccountHolder primaryOwner, AccountHolder secondaryOwner,
+                    String secretKey, BigDecimal minimumBalance, BigDecimal monthlyMaintenanceFee) {
+        super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
         this.minimumBalance = minimumBalance;
         this.monthlyMaintenanceFee = monthlyMaintenanceFee;
-        this.creationDate = creationDate;
-
     }
 
     public String getSecretKey() {

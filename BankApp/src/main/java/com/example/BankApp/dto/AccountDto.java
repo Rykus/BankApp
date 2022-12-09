@@ -1,30 +1,34 @@
 package com.example.BankApp.dto;
 
-import com.example.BankApp.models.AccountStatus;
-import com.example.BankApp.users.User;
-import jakarta.persistence.ManyToOne;
-import jdk.jfr.DataAmount;
-import lombok.Data;
+
+
+
 
 import java.math.BigDecimal;
 
-@Data
+
 public class AccountDto {
 
 
     private BigDecimal balance;
-    private User primaryOwner;
-    private User secondaryOwner;
-
+    private Long primaryOwnerId;
+    private Long secondaryOwnerId;
     private String secretKey;
+    private BigDecimal minimumBalance;
+    private BigDecimal monthlyMaintenanceFee;
+    private BigDecimal creditLimit;
+    private BigDecimal interestRate;
 
-    public AccountDto() {
-    }
-
-    public AccountDto(BigDecimal balance, User primaryOwner, String secretKey) {
+    public AccountDto(BigDecimal balance, Long primaryOwnerId, Long secondaryOwnerId, String secretKey,
+                      BigDecimal minimumBalance, BigDecimal monthlyMaintenanceFee, BigDecimal creditLimit, BigDecimal interestRate) {
         this.balance = balance;
-        this.primaryOwner = primaryOwner;
+        this.primaryOwnerId = primaryOwnerId;
+        this.secondaryOwnerId = secondaryOwnerId;
         this.secretKey = secretKey;
+        this.minimumBalance = minimumBalance;
+        this.monthlyMaintenanceFee = monthlyMaintenanceFee;
+        this.creditLimit = creditLimit;
+        this.interestRate = interestRate;
     }
 
     public BigDecimal getBalance() {
@@ -35,20 +39,20 @@ public class AccountDto {
         this.balance = balance;
     }
 
-    public User getPrimaryOwner() {
-        return primaryOwner;
+    public Long getPrimaryOwnerId() {
+        return primaryOwnerId;
     }
 
-    public void setPrimaryOwner(User primaryOwner) {
-        this.primaryOwner = primaryOwner;
+    public void setPrimaryOwnerId(Long primaryOwnerId) {
+        this.primaryOwnerId = primaryOwnerId;
     }
 
-    public User getSecondaryOwner() {
-        return secondaryOwner;
+    public Long getSecondaryOwnerId() {
+        return secondaryOwnerId;
     }
 
-    public void setSecondaryOwner(User secondaryOwner) {
-        this.secondaryOwner = secondaryOwner;
+    public void setSecondaryOwnerId(Long secondaryOwnerId) {
+        this.secondaryOwnerId = secondaryOwnerId;
     }
 
     public String getSecretKey() {
@@ -57,5 +61,37 @@ public class AccountDto {
 
     public void setSecretKey(String secretKey) {
         this.secretKey = secretKey;
+    }
+
+    public BigDecimal getMinimumBalance() {
+        return minimumBalance;
+    }
+
+    public void setMinimumBalance(BigDecimal minimumBalance) {
+        this.minimumBalance = minimumBalance;
+    }
+
+    public BigDecimal getMonthlyMaintenanceFee() {
+        return monthlyMaintenanceFee;
+    }
+
+    public void setMonthlyMaintenanceFee(BigDecimal monthlyMaintenanceFee) {
+        this.monthlyMaintenanceFee = monthlyMaintenanceFee;
+    }
+
+    public BigDecimal getCreditLimit() {
+        return creditLimit;
+    }
+
+    public void setCreditLimit(BigDecimal creditLimit) {
+        this.creditLimit = creditLimit;
+    }
+
+    public BigDecimal getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(BigDecimal interestRate) {
+        this.interestRate = interestRate;
     }
 }

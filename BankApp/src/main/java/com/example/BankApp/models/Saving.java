@@ -1,5 +1,6 @@
 package com.example.BankApp.models;
 
+import com.example.BankApp.users.AccountHolder;
 import com.example.BankApp.users.User;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.DecimalMax;
@@ -14,19 +15,20 @@ import java.time.LocalDate;
 public class Saving extends Account{
 
     private String secretKey;
-    @DecimalMin(value = "100")
-    private BigDecimal minimumBalance;
-    private LocalDate creationDate;
-    private BigDecimal interestRate;
+    @DecimalMin(value = "1000")
+    private BigDecimal minimumBalance = BigDecimal.valueOf(1000.00);
+    private LocalDate creationDate = LocalDate.now();
+    @DecimalMax(value = "0.5")
+    private BigDecimal interestRate = BigDecimal.valueOf(0.0025);
 
     public Saving() {
     }
 
-    public Saving(BigDecimal balance, User primaryOwner, BigDecimal penaltyFee, AccountStatus status, String secretKey, BigDecimal minimumBalance, LocalDate creationDate, BigDecimal interestRate) {
-        super(balance, primaryOwner, penaltyFee, status);
+    public Saving(BigDecimal balance, AccountHolder primaryOwner, AccountHolder secondaryOwner,
+                  String secretKey, BigDecimal minimumBalance, BigDecimal interestRate) {
+        super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
         this.minimumBalance = minimumBalance;
-        this.creationDate = creationDate;
         this.interestRate = interestRate;
     }
 
@@ -45,7 +47,7 @@ public class Saving extends Account{
     public void setMinimumBalance(BigDecimal minimumBalance) {
         if(minimumBalance.compareTo(BigDecimal.valueOf(100)) == 1)
             this.minimumBalance = minimumBalance;
-           else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found");
+           else throw new IllegalArgumentException("minimum balance must be at least 100€");
     }
 
     public LocalDate getCreationDate() {
