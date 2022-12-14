@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 
 public class AdminsService {
@@ -86,6 +87,22 @@ public class AdminsService {
     public void deleteAccountHolder (AccountHolder accountHolder){
         accountHolderRepository.findById(accountHolder.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found"));
         accountHolderRepository.delete(accountHolder);
+    }
+
+    public List<Account> getAllAccount(){
+        return accountRepository.findAll();
+    }
+
+    public Account getAccount(Long id){
+        return accountRepository.findById(id).get();
+    }
+
+    public List<AccountHolder> getAllUsers(){
+        return accountHolderRepository.findAll();
+    }
+
+    public AccountHolder getUser(Long id){
+        return accountHolderRepository.findById(id).get();
     }
 
 

@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 public class AdminsController {
@@ -61,13 +62,38 @@ public class AdminsController {
     @DeleteMapping ("/deleteAccount")
     @ResponseStatus(HttpStatus.OK)
     private void deleteAccount(@RequestBody Account account){
-        deleteAccount(account);
+
+        adminsService.deleteAccount(account);
     }
 
     @DeleteMapping ("/deleteAccountHolder")
     @ResponseStatus(HttpStatus.OK)
     private void deleteAccountHolder(@RequestBody AccountHolder accountHolder){
-        deleteAccountHolder(accountHolder);
+        adminsService.deleteAccountHolder(accountHolder);
+    }
+
+    @GetMapping ("/AccountList")
+    @ResponseStatus(HttpStatus.OK)
+    private List<Account> getAccountsList(){
+        return adminsService.getAllAccount();
+    }
+
+    @GetMapping ("/AccountId")
+    @ResponseStatus(HttpStatus.OK)
+    private Account getAccount(Long id){
+        return adminsService.getAccount(id);
+    }
+
+    @GetMapping ("/AccountHolderList")
+    @ResponseStatus(HttpStatus.OK)
+    private List<AccountHolder> getAccountHolderList(){
+        return adminsService.getAllUsers();
+    }
+
+    @GetMapping ("/AccountHolderId")
+    @ResponseStatus(HttpStatus.OK)
+    private AccountHolder getAccountHolder(Long id){
+        return adminsService.getUser(id);
     }
 
 
