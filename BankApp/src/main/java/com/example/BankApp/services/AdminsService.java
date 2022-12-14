@@ -12,6 +12,8 @@ import com.example.BankApp.users.ThirdParty;
 import com.example.BankApp.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
